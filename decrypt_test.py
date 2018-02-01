@@ -1,6 +1,10 @@
 import itertools
 import rsa
+import enchant
+import nltk
 
+#english words
+dict_words=enchant.Dict("en-US")
 file_primes=open("export.txt",'r')
 primes_string=file_primes.readlines()
 primes_list=[]
@@ -22,10 +26,27 @@ for comb in combinations:
     q=int(comb[1])
     print(p)
     print(q)
+    #if p>71 and q>73:
+    #    break
+    #elif p>71 or q>73:
+    #    continue
     try:
-        r=rsa.decrypt(rsa.enc_message,p,q)
-        print(r)
-        output.write(p+ ","+q+": "+r)
-    except Exception:
+        if p*q == rsa.public_key:
+            r=rsa.decrypt(rsa.enc_message,p,q)
+            words = r.split(" ")
+            suspect_word=False
+            for word in words:
+                if dict_words.check(word):
+                    suspect_word=True
+                    break
+            #print(r)
+            output.write(str(p)+ ","+str(q)+": "+r+"\n")
+            if (suspect_word):
+                print("suspect")
+                output.write("suspect\n")
+                break
+
+    except Exception, e:
+        #print(str(e))
         pass
 output.close()

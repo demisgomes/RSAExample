@@ -3,7 +3,7 @@
 import ascii
 import math_op as mo
 import codify as cd
-import print as pr
+import printer as pr
 
 def encrypt(string, _p, _q):
     # define two prime numbers
@@ -41,11 +41,12 @@ def decrypt(enc_chars, _p, _q):
     #pr.parameters("DECRYPTED parameters", p,q,n,tn,e,d)
     return decr_message
 
-p=31
-q=23
-#x=encrypt("Eu vou pagar pra ver",17,23)
-enc_message=encrypt("Eu vou pagar pra ver", p, q)
-#print(enc_message)
+p=601
+q=653
+#x=encrypt("I'm sexy and I know it",17,23)
+enc_message=encrypt("Lili is a nickname for Lisandra", p, q)
+print(enc_message)
+public_key=p*q
 
 #decr_message=decrypt(enc_message, p, q)
 #print(decr_message)
